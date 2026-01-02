@@ -29,8 +29,8 @@ const IPAddress SUBNET(255, 255, 255, 0);
 const IPAddress DNS_SERVER(8, 8, 8, 8);
 
 // --- System Constants ---
-const char* const WIFI_SSID = "Note14S";
-const char* const WIFI_PASS = "Pooya1331";
+const char* const WIFI_SSID = "YOUR_SSID";
+const char* const WIFI_PASS = "YOUR_PASSWORD";
 const char* const LOG_FILE_PATH = "/log.txt";
 
 /**

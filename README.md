@@ -3,6 +3,15 @@
 A smart IoT-based temperature monitoring system built with **ESP8266 (NodeMCU)** that provides real-time temperature tracking, web-based control, data logging, and multi-level alerts.
 
 ![tempature device](img/1.jpeg)
+A physical prototype of the temperature monitoring device built with ESP8266 and external peripherals.
+
+<!--
+## 🎥 Demo Video
+
+A full walkthrough and demonstration of the project is available on YouTube:
+
+[Watch the demo video](https://www.youtube.com/watch?v=xxx)
+-->
 
 ## 📋 Table of Contents
 
@@ -121,7 +130,7 @@ Edit [include/AppConfig.h](include/AppConfig.h):
 const char* const WIFI_SSID = "YOUR_SSID";
 const char* const WIFI_PASS = "YOUR_PASSWORD";
 
-// Line ~23-26: Update static IP (optional)
+// Line ~23-26: Update static IP (This IP range must be supported by the DHCP server)
 const IPAddress LOCAL_IP(10, 71, 74, 100); 
 const IPAddress GATEWAY(10, 71, 74, 98);
 ```
@@ -189,26 +198,6 @@ All pin definitions are in [include/AppConfig.h](include/AppConfig.h):
 ---
 
 ## 🔄 How It Works
-
-### Temperature Reading & Alerts
-
-```
-┌─────────────────────────────────────────┐
-│   Read DS18B20 Temperature Sensor        │
-│   (Every ~1 second)                      │
-└────────────┬────────────────────────────┘
-             ▼
-    ┌────────────────────┐
-    │ Compare with Limits│
-    └──┬────┬────┬──────┘
-       ▼    ▼    ▼
-    Normal Warning Critical
-    (≤Green)(≤Yellow)(>Yellow)
-       │      │         │
-       ▼      ▼         ▼
-    Green  Yellow      Red
-    LED    LED + Buzz  LED + Buzz
-```
 
 ### Data Flow
 
@@ -344,71 +333,68 @@ NodeMCU ESP8266
     └─── GND ────────────── Common Ground (all components)
 ```
 
-### Board Photo Placeholder
-
-![ESP8266 Temperature Monitoring Board](https://via.placeholder.com/600x400?text=Your+Board+Image+Here)
-
-*Add your actual board photo/schematic here after assembly*
-
 ---
 
 ## 🐛 Troubleshooting
 
 ### Temperature Sensor Not Reading
 
-- ✓ Check DS18B20 wiring (especially pull-up resistor on data line)
-- ✓ Verify pin configuration in `AppConfig.h`
-- ✓ Check serial monitor for error messages
+- Check DS18B20 wiring (especially pull-up resistor on data line)
+- Verify pin configuration in `AppConfig.h`
+- Check serial monitor for error messages
 
 ### WiFi Connection Fails
 
-- ✓ Verify SSID and password in `AppConfig.h`
-- ✓ Check IP address isn't already in use
-- ✓ Restart router and device
-- ✓ Check WiFi signal strength
+- Verify SSID and password in `AppConfig.h`
+- Check IP address isn't already in use
+- Restart router and device
+- Check WiFi signal strength
 
 ### RTC Not Keeping Time
 
-- ✓ Verify I2C wiring (SDA/SCL pins and pull-up resistors)
-- ✓ Check DS3231 battery is installed
-- ✓ Use web interface to set current time
+- Verify I2C wiring (SDA/SCL pins and pull-up resistors)
+- Check DS3231 battery is installed
+- Use web interface to set current time
 
 ### Web Interface Not Accessible
 
-- ✓ Check device IP address from serial monitor
-- ✓ Ensure device and computer are on same network
-- ✓ Verify web server started (check serial output)
-- ✓ Clear browser cache or try incognito mode
+- Check device IP address from serial monitor
+- Ensure device and computer are on same network
+- Verify web server started (check serial output)
+- Clear browser cache or try incognito mode
+
+### Device Not Accessible with Static IP
+
+- Ensure the static IP is within the same subnet as the router
+- Avoid IP addresses outside the DHCP pool unless the router explicitly supports them
+- Verify gateway and subnet mask configuration
+- Static IP selection must be aligned with the router’s DHCP and network configuration.
+
+### Temperature Chart Not Displayed
+
+- Ensure the client device has internet access
+- The chart library is loaded from a CDN and will not render without external connectivity
+- The ESP8266 itself does not need internet access for data logging
 
 ### Display Not Showing Temperature
 
-- ✓ Check TM1637 wiring (CLK and DIO pins)
-- ✓ Verify pin definitions in `AppConfig.h`
-- ✓ Ensure display has power (3.3V)
+- Check TM1637 wiring (CLK and DIO pins)
+- Verify pin definitions in `AppConfig.h`
+- Ensure display has power (3.3V)
 
 ---
 
 ## 📝 License
 
-This project is open source. Feel free to use, modify, and distribute.
+This project is released under the MIT License.
+
+It was created as a university project and for personal experimentation and learning purposes.
+You are free to use, modify, distribute, or repurpose it without restriction.
+
+This project comes with no warranty and may receive updates in the future.
 
 ---
 
 ## 🤝 Contributing
 
 Found a bug or have an improvement? Feel free to open an issue or submit a pull request!
-
----
-
-**Author:** Pooya Rezaee  
-**Repository:** [https://github.com/PooyaRezaee/tempature-iot](https://github.com/PooyaRezaee/tempature-iot)  
-**Created:** 2025
-
----
-
-## 📚 Additional Resources
-
-- [ESP8266 Documentation](https://arduino-esp8266.readthedocs.io/)
-- [DallasTemperature Library](https://github.com/milesburton/Arduino-Temperature-Control-Library)
-- [TM1637 Display](https://github.com/smougenot/TM1637)
-- [RTClib Documentation](https://github.com/adafruit/RTClib)
